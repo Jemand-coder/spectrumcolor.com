@@ -7,16 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --panel-bg: rgba(255, 255, 255, 0.5);
+            --panel-bg: rgba(255, 255, 255, 0.06);
             --panel-blur: blur(30px);
             --border-radius-lg: 24px;
             --border-radius-md: 14px;
-            --text-main: #1d1d1f;
-            --text-secondary: #6e6e73;
+            --text-main: #ffffff;
+            --text-secondary: #a1a1a6;
             --accent: #0071e3;
-            --accent-hover: #0077ed;
-            --shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-            --border-light: rgba(255, 255, 255, 0.5);
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            --border-light: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -55,7 +54,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(130px);
-            opacity: 0.4;
+            opacity: 0.35;
             animation: floatBlob 20s infinite alternate ease-in-out;
         }
 
@@ -111,9 +110,9 @@
         }
 
         nav button.active {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .container { width: 100%; max-width: 900px; }
@@ -149,9 +148,9 @@
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.5);
-            color: var(--text-main);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 8px 16px;
             font-size: 0.9rem;
             font-weight: 500;
@@ -163,7 +162,7 @@
             transition: background 0.2s;
         }
 
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.8); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
 
         .flex-group { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 25px; }
         .control-item { flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px; }
@@ -180,13 +179,13 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 14px;
             padding: 8px 12px;
         }
 
-        /* Nativer Farbwähler-Button aus v1 im Apple Design verpackt */
+        /* Nativer Farbwähler-Button aus v1 */
         .color-wheel-native-wrapper {
             display: flex;
             flex-direction: column;
@@ -203,26 +202,25 @@
             border-radius: 50%;
             cursor: pointer;
             background: transparent;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             transition: transform 0.2s;
         }
 
-        input[type="color"].apple-native-picker:hover {
-            transform: scale(1.03);
-        }
-
+        input[type="color"].apple-native-picker:hover { transform: scale(1.03); }
         input[type="color"].apple-native-picker::-webkit-color-swatch-wrapper { padding: 0; }
         input[type="color"].apple-native-picker::-webkit-color-swatch { border: 4px solid #ffffff; border-radius: 50%; }
 
-        /* Kleine Farb-Dots für Eingabemasken */
+        /* Kleine Farb-Dots - FIX: Garantiert Kreisrund (kein Oval mehr!) */
         .color-dot {
             width: 30px;
             height: 30px;
+            flex-shrink: 0;
             border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 2px solid #ffffff;
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .color-dot input[type="color"] {
@@ -232,26 +230,44 @@
             cursor: pointer;
         }
 
-        input[type="text"], select {
+        /* FIX: Entfernt graue Kästchen und Browser-Ränder beim Select-Feld */
+        select {
             background: transparent;
             border: none;
             width: 100%;
             font-size: 1rem;
-            color: var(--text-main);
+            color: #ffffff;
             outline: none;
             font-weight: 500;
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        select option { background: #1d1d1f; color: #ffffff; }
+
+        /* Editierbare Eingabemasken */
+        .input-editable-box {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #ffffff;
+            outline: none;
+            font-weight: bold;
         }
 
+        /* FIX: Verhindert unschöne Hintergrund-Ränder beim Gradient */
         .gradient-preview {
             width: 100%; height: 200px;
             border-radius: var(--border-radius-lg);
             margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-            transition: background 0.1s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
 
-        /* Kontrast & Live-Vorschau kombiniert */
+        /* Kontrast-Dashboard */
         .contrast-dashboard {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -260,11 +276,11 @@
         }
 
         .contrast-card {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
             padding: 16px;
             border-radius: var(--border-radius-md);
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
         .score { font-size: 2rem; font-weight: 700; margin: 6px 0; }
@@ -273,11 +289,11 @@
             display: inline-block; padding: 4px 12px; border-radius: 20px;
             font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
         }
-        .badge.pass { background: rgba(52, 199, 89, 0.15); color: #248a3d; }
-        .badge.fail { background: rgba(255, 59, 48, 0.15); color: #ff3b30; }
+        .badge.pass { background: rgba(52, 199, 89, 0.2); color: #30d158; }
+        .badge.fail { background: rgba(255, 59, 48, 0.2); color: #ff453a; }
 
         .live-preview-section {
-            border-top: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 25px;
         }
 
@@ -286,6 +302,7 @@
         .preview-box {
             padding: 25px; border-radius: var(--border-radius-lg);
             min-height: 200px; display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
 
         .preview-box h3 { font-size: 1.4rem; margin-bottom: 5px; }
@@ -293,18 +310,19 @@
 
         .preview-box button {
             padding: 8px 20px; border-radius: 10px; border: none;
-            font-weight: 500; font-size: 0.9rem; width: fit-content; cursor: pointer;
+            font-weight: 600; font-size: 0.9rem; width: fit-content; cursor: pointer;
         }
 
         .color-code-display {
-            background: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.07);
             padding: 12px 18px; border-radius: var(--border-radius-md);
             font-family: monospace; font-size: 0.95rem;
             display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .btn-copy { background: transparent; border: none; color: var(--accent); cursor: pointer; font-size: 1rem; }
+        .btn-copy { background: transparent; border: none; color: #0071e3; cursor: pointer; font-size: 1rem; }
+        .btn-copy:hover { color: #0077ed; }
 
         @media (max-width: 768px) {
             .preview-box-container, .contrast-dashboard { grid-template-columns: 1fr; }
@@ -332,21 +350,26 @@
 
     <div class="container">
         
+        <!-- FARBRAD -->
         <div id="farbrad" class="panel active">
             <h2>
                 Farbe wählen
                 <button class="btn-secondary" onclick="randomizeWheel()"><i class="fa-solid fa-shuffle"></i> Zufällig</button>
             </h2>
             <div class="color-wheel-native-wrapper">
-                <label>Klicke auf den Kreis zum Auswählen</label>
-                <input type="color" id="wheelColor" class="apple-native-picker" value="#0071e3" oninput="updateColorWheel(this.value)">
+                <label>Klicke auf den Kreis oder gib unten einen Code ein</label>
+                <input type="color" id="wheelColor" class="apple-native-picker" value="#0071E3" oninput="updateColorWheelFromPicker(this.value)">
                 <div class="color-code-display" style="width: 100%; max-width: 320px;">
-                    <span id="wheelHex">HEX: #0071E3</span>
-                    <button class="btn-copy" onclick="copyText('wheelHex')"><i class="fa-regular fa-copy"></i></button>
+                    <div style="display: flex; align-items: center; width: 100%;">
+                        <span style="font-weight: bold; color: var(--text-secondary); margin-right: 4px;">#</span>
+                        <input type="text" id="wheelHexInput" class="input-editable-box" value="0071E3" oninput="updateColorWheelFromText()">
+                    </div>
+                    <button class="btn-copy" onclick="copyTextFromInput('wheelHexInput')"><i class="fa-regular fa-copy"></i></button>
                 </div>
             </div>
         </div>
 
+        <!-- GRADIENT MAKER -->
         <div id="gradient" class="panel">
             <h2>
                 Gradient Maker
@@ -357,34 +380,38 @@
                 <div class="control-item">
                     <label>Farbe 1</label>
                     <div class="color-input-wrapper">
-                        <div class="color-dot" id="gDot1"><input type="color" id="gradColor1" value="#ff3b30" oninput="updateGradient()"></div>
-                        <input type="text" id="gradText1" value="#FF3B30" oninput="updateGradFromText()">
+                        <div class="color-dot" id="gDot1"><input type="color" id="gradColor1" value="#FF3B30" oninput="updateGradientFromPicker()"></div>
+                        <span style="font-weight: bold; color: var(--text-secondary);">#</span>
+                        <input type="text" id="gradText1" class="input-editable-box" value="FF3B30" oninput="updateGradientFromText()">
                     </div>
                 </div>
                 <div class="control-item">
                     <label>Farbe 2</label>
                     <div class="color-input-wrapper">
-                        <div class="color-dot" id="gDot2"><input type="color" id="gradColor2" value="#0071e3" oninput="updateGradient()"></div>
-                        <input type="text" id="gradText2" value="#0071E3" oninput="updateGradFromText()">
+                        <div class="color-dot" id="gDot2"><input type="color" id="gradColor2" value="#0071E3" oninput="updateGradientFromPicker()"></div>
+                        <span style="font-weight: bold; color: var(--text-secondary);">#</span>
+                        <input type="text" id="gradText2" class="input-editable-box" value="0071E3" oninput="updateGradientFromText()">
                     </div>
                 </div>
                 <div class="control-item">
                     <label>Richtung</label>
-                    <div class="color-input-wrapper">
-                        <select id="gradDir" onchange="updateGradient()">
-                            <option value="90deg">Horizontal →</option>
-                            <option value="180deg">Vertikal ↓</option>
-                            <option value="135deg">Diagonal ↘</option>
+                    <div class="color-input-wrapper" style="position: relative;">
+                        <select id="gradDir" onchange="renderGradient()">
+                            <option value="90deg">Horizontal &rarr;</option>
+                            <option value="180deg">Vertikal &darr;</option>
+                            <option value="135deg">Diagonal &searr;</option>
                         </select>
+                        <i class="fa-solid fa-chevron-down" style="position: absolute; right: 12px; color: var(--text-secondary); pointer-events: none; font-size: 0.8rem;"></i>
                     </div>
                 </div>
             </div>
             <div class="color-code-display">
-                <span id="gradCode">linear-gradient(90deg, #ff3b30, #0071e3)</span>
+                <span id="gradCode">linear-gradient(90deg, #FF3B30, #0071E3)</span>
                 <button class="btn-copy" onclick="copyText('gradCode')"><i class="fa-regular fa-copy"></i></button>
             </div>
         </div>
 
+        <!-- KONTRAST-PRÜFER & VORSCHAU -->
         <div id="kontrast" class="panel">
             <h2>
                 Kontrast-Prüfer
@@ -394,15 +421,17 @@
                 <div class="control-item">
                     <label>Textfarbe</label>
                     <div class="color-input-wrapper">
-                        <div class="color-dot" id="cDotText"><input type="color" id="contrastText" value="#ffffff" oninput="calculateContrast()"></div>
-                        <input type="text" id="cInputText" value="#ffffff" oninput="updateContrastFromText()">
+                        <div class="color-dot" id="cDotText"><input type="color" id="contrastText" value="#FFFFFF" oninput="updateContrastFromPicker()"></div>
+                        <span style="font-weight: bold; color: var(--text-secondary);">#</span>
+                        <input type="text" id="cInputText" class="input-editable-box" value="FFFFFF" oninput="updateContrastFromText()">
                     </div>
                 </div>
                 <div class="control-item">
                     <label>Hintergrundfarbe</label>
                     <div class="color-input-wrapper">
-                        <div class="color-dot" id="cDotBg"><input type="color" id="contrastBg" value="#1d1d1f" oninput="calculateContrast()"></div>
-                        <input type="text" id="cInputBg" value="#1d1d1f" oninput="updateContrastFromText()">
+                        <div class="color-dot" id="cDotBg"><input type="color" id="contrastBg" value="#1D1D1F" oninput="updateContrastFromPicker()"></div>
+                        <span style="font-weight: bold; color: var(--text-secondary);">#</span>
+                        <input type="text" id="cInputBg" class="input-editable-box" value="1D1D1F" oninput="updateContrastFromText()">
                     </div>
                 </div>
             </div>
@@ -413,6 +442,7 @@
                 <div class="contrast-card"><label>AAA Standard</label><div style="margin-top:6px;"><span id="aaaBadge" class="badge pass">Pass</span></div></div>
             </div>
 
+            <!-- Live-Vorschau -->
             <div class="live-preview-section">
                 <label>UI Live-Vorschau (Pangramm)</label>
                 <div class="preview-box-container">
@@ -446,62 +476,92 @@
             event.currentTarget.classList.add('active');
         }
 
+        function cleanHex(text) {
+            text = text.trim();
+            if(text.startsWith('#')) text = text.replace('#', '');
+            return text.toUpperCase();
+        }
+
+        function isValidHex(text) {
+            return /^[0-9A-F]{6}$/i.test(text);
+        }
+
         function getRandomHex() {
-            return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+            return Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
         }
 
         function copyText(id) {
             let text = document.getElementById(id).innerText;
-            if (text.includes("HEX: ")) text = text.replace("HEX: ", "");
             navigator.clipboard.writeText(text);
-            alert("Kopiert!");
+            alert("In Zwischenablage kopiert!");
         }
 
-        /* --- LOGIK: FARBRAD (v1 style) --- */
-        function updateColorWheel(val) {
-            document.getElementById('wheelHex').innerText = `HEX: ${val.toUpperCase()}`;
+        function copyTextFromInput(id) {
+            let text = document.getElementById(id).value.trim();
+            if(!text.startsWith('#')) text = '#' + text;
+            navigator.clipboard.writeText(text.toUpperCase());
+            alert("Kopiert: " + text.toUpperCase());
+        }
+
+        /* --- MODUS 1: FARBRAD --- */
+        function updateColorWheelFromPicker(val) {
+            document.getElementById('wheelHexInput').value = cleanHex(val);
+        }
+
+        function updateColorWheelFromText() {
+            let text = cleanHex(document.getElementById('wheelHexInput').value);
+            if(isValidHex(text)) {
+                document.getElementById('wheelColor').value = '#' + text;
+            }
         }
 
         function randomizeWheel() {
-            const randomColor = getRandomHex();
-            document.getElementById('wheelColor').value = randomColor;
-            updateColorWheel(randomColor);
+            const code = getRandomHex();
+            document.getElementById('wheelColor').value = '#' + code;
+            document.getElementById('wheelHexInput').value = code;
         }
 
-        /* --- LOGIK: GRADIENT MAKER --- */
-        function updateGradient() {
+        /* --- MODUS 2: GRADIENT MAKER --- */
+        function renderGradient() {
             const c1 = document.getElementById('gradColor1').value;
             const c2 = document.getElementById('gradColor2').value;
             const dir = document.getElementById('gradDir').value;
             
-            // Setzt die Hintergrundfarbe der Dots und Textfelder synchron mit dem Farbwert
             document.getElementById('gDot1').style.backgroundColor = c1;
             document.getElementById('gDot2').style.backgroundColor = c2;
-            document.getElementById('gradText1').value = c1.toUpperCase();
-            document.getElementById('gradText2').value = c2.toUpperCase();
             
+            // FIX: Verwendung von background-image statt background, um Ränder zu verhindern
             const style = `linear-gradient(${dir}, ${c1}, ${c2})`;
-            document.getElementById('gradPreview').style.background = style;
+            document.getElementById('gradPreview').style.backgroundImage = style;
             document.getElementById('gradCode').innerText = style;
         }
 
-        function updateGradFromText() {
-            let t1 = document.getElementById('gradText1').value;
-            let t2 = document.getElementById('gradText2').value;
+        function updateGradientFromPicker() {
+            document.getElementById('gradText1').value = cleanHex(document.getElementById('gradColor1').value);
+            document.getElementById('gradText2').value = cleanHex(document.getElementById('gradColor2').value);
+            renderGradient();
+        }
+
+        function updateGradientFromText() {
+            let t1 = cleanHex(document.getElementById('gradText1').value);
+            let t2 = cleanHex(document.getElementById('gradText2').value);
             
-            // Validierung für korrekte Hex-Eingabe vor dem Zuweisen
-            if(/^#[0-9A-F]{6}$/i.test(t1)) document.getElementById('gradColor1').value = t1;
-            if(/^#[0-9A-F]{6}$/i.test(t2)) document.getElementById('gradColor2').value = t2;
-            updateGradient();
+            if(isValidHex(t1)) document.getElementById('gradColor1').value = '#' + t1;
+            if(isValidHex(t2)) document.getElementById('gradColor2').value = '#' + t2;
+            renderGradient();
         }
 
         function randomizeGradient() {
-            document.getElementById('gradColor1').value = getRandomHex();
-            document.getElementById('gradColor2').value = getRandomHex();
-            updateGradient();
+            const rand1 = getRandomHex();
+            const rand2 = getRandomHex();
+            document.getElementById('gradColor1').value = '#' + rand1;
+            document.getElementById('gradColor2').value = '#' + rand2;
+            document.getElementById('gradText1').value = rand1;
+            document.getElementById('gradText2').value = rand2;
+            renderGradient();
         }
 
-        /* --- LOGIK: KONTRAST & LIVE VORSCHAU --- */
+        /* --- MODUS 3: KONTRAST & LIVE VORSCHAU --- */
         function hexToRgb(hex) {
             const res = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return res ? [parseInt(res[1], 16), parseInt(res[2], 16), parseInt(res[3], 16)] : [0,0,0];
@@ -512,14 +572,12 @@
             return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
         }
 
-        function calculateContrast() {
+        function renderContrast() {
             const tx = document.getElementById('contrastText').value;
             const bg = document.getElementById('contrastBg').value;
             
             document.getElementById('cDotText').style.backgroundColor = tx;
             document.getElementById('cDotBg').style.backgroundColor = bg;
-            document.getElementById('cInputText').value = tx.toUpperCase();
-            document.getElementById('cInputBg').value = bg.toUpperCase();
 
             const l1 = getLuminance(hexToRgb(tx));
             const l2 = getLuminance(hexToRgb(bg));
@@ -533,7 +591,7 @@
             document.getElementById('aaaBadge').className = rounded >= 7 ? "badge pass" : "badge fail";
             document.getElementById('aaaBadge').innerText = rounded >= 7 ? "Pass" : "Fail";
 
-            // Live UI Boxen aktualisieren
+            // Live UI Vorschauen anpassen
             document.getElementById('boxLeft').style.backgroundColor = tx;
             document.getElementById('boxLeft').style.color = bg;
             document.getElementById('btnLeft').style.backgroundColor = bg;
@@ -545,24 +603,35 @@
             document.getElementById('btnRight').style.color = bg;
         }
 
+        function updateContrastFromPicker() {
+            document.getElementById('cInputText').value = cleanHex(document.getElementById('contrastText').value);
+            document.getElementById('cInputBg').value = cleanHex(document.getElementById('contrastBg').value);
+            renderContrast();
+        }
+
         function updateContrastFromText() {
-            let tText = document.getElementById('cInputText').value;
-            let tBg = document.getElementById('cInputBg').value;
-            if(/^#[0-9A-F]{6}$/i.test(tText)) document.getElementById('contrastText').value = tText;
-            if(/^#[0-9A-F]{6}$/i.test(tBg)) document.getElementById('contrastBg').value = tBg;
-            calculateContrast();
+            let tText = cleanHex(document.getElementById('cInputText').value);
+            let tBg = cleanHex(document.getElementById('cInputBg').value);
+            
+            if(isValidHex(tText)) document.getElementById('contrastText').value = '#' + tText;
+            if(isValidHex(tBg)) document.getElementById('contrastBg').value = '#' + tBg;
+            renderContrast();
         }
 
         function randomizeContrast() {
-            document.getElementById('contrastText').value = getRandomHex();
-            document.getElementById('contrastBg').value = getRandomHex();
-            calculateContrast();
+            const randText = getRandomHex();
+            const randBg = getRandomHex();
+            document.getElementById('contrastText').value = '#' + randText;
+            document.getElementById('contrastBg').value = '#' + randBg;
+            document.getElementById('cInputText').value = randText;
+            document.getElementById('cInputBg').value = randBg;
+            renderContrast();
         }
 
-        // Initialisierung aller Werte beim Laden
+        // App Initialisierung
         window.onload = function() {
-            updateGradient();
-            calculateContrast();
+            renderGradient();
+            renderContrast();
         }
     </script>
 </body>
